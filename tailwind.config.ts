@@ -47,6 +47,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Psychology-based colors for Career Advisor
+        growth: {
+          DEFAULT: "hsl(var(--growth))",
+          light: "hsl(var(--growth-light))",
+          foreground: "hsl(var(--growth-foreground))",
+        },
+        energy: {
+          DEFAULT: "hsl(var(--energy))",
+          light: "hsl(var(--energy-light))",
+          foreground: "hsl(var(--energy-foreground))",
+        },
+        trust: {
+          DEFAULT: "hsl(var(--trust))",
+          light: "hsl(var(--trust-light))",
+          dark: "hsl(var(--trust-dark))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +73,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-growth": "var(--gradient-growth)",
+        "gradient-energy": "var(--gradient-energy)",
+        "gradient-hero": "var(--gradient-hero)",
+        "gradient-card": "var(--gradient-card)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "glow": "var(--shadow-glow)",
+        "success": "var(--shadow-success)",
       },
       borderRadius: {
         lg: "var(--radius)",
