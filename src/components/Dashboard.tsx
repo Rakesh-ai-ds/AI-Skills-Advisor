@@ -7,8 +7,10 @@ import { ChatInterface } from './ChatInterface';
 import { AgentCard } from './AgentCard';
 import { ProgressTracker } from './ProgressTracker';
 import { UserProfile } from './UserProfile';
-import { motion } from 'framer-motion';
-import { Brain, Users, TrendingUp, Star, MessageSquare } from 'lucide-react';
+import { QuickActions } from './QuickActions';
+import { EnhancedStats } from './EnhancedStats';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Brain, Users, TrendingUp, Star, MessageSquare, Zap } from 'lucide-react';
 import { AgentPrompts, geminiService } from '@/lib/gemini';
 
 interface DashboardProps {
@@ -18,7 +20,7 @@ interface DashboardProps {
 export function Dashboard({ user }: DashboardProps) {
   const [activeAgent, setActiveAgent] = useState<keyof AgentPrompts>('career');
   const [userProfile, setUserProfile] = useState({
-    name: user?.displayName || 'Student',
+    name: user?.displayName || 'Rakesh Kumar',
     branch: 'Computer Science',
     year: 3,
     skills: ['JavaScript', 'React', 'Python'],
@@ -27,12 +29,40 @@ export function Dashboard({ user }: DashboardProps) {
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [completedSkills] = useState(['JavaScript', 'React', 'HTML/CSS']);
 
+  const handleQuickAction = (action: string) => {
+    console.log('Quick action triggered:', action);
+    // Handle different quick actions
+    switch (action) {
+      case 'set-goal':
+        console.log('Opening career goal setting');
+        break;
+      case 'skill-test':
+        setActiveAgent('skills');
+        break;
+      case 'mock-interview':
+        setActiveAgent('interview');
+        break;
+      case 'resume-builder':
+        console.log('Resume builder would open here');
+        break;
+      default:
+        console.log('Unknown action:', action);
+    }
+  };
+
   useEffect(() => {
     // Generate motivational message on load
     const generateMessage = async () => {
-      const progress = (completedSkills.length / 10) * 100;
-      const message = await geminiService.generateMotivationalMessage(userProfile.name, progress);
-      setMotivationalMessage(message);
+      try {
+        const progress = (completedSkills.length / 10) * 100;
+        console.log('Generating motivational message for:', userProfile.name, 'Progress:', progress + '%');
+        const message = await geminiService.generateMotivationalMessage(userProfile.name, progress);
+        console.log('Generated motivational message:', message);
+        setMotivationalMessage(message);
+      } catch (error) {
+        console.error('Error generating motivational message:', error);
+        setMotivationalMessage(`🚀 Keep going, ${userProfile.name}! You're ${Math.round((completedSkills.length / 10) * 100)}% on your way to career success!`);
+      }
     };
     generateMessage();
   }, [userProfile.name, completedSkills.length]);
@@ -99,44 +129,33 @@ export function Dashboard({ user }: DashboardProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Stats Grid */}
+        {/* Enhanced Stats Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"
+          className="mb-8"
         >
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <Card key={stat.label} className="p-4 bg-gradient-card border-0 shadow-card">
-                <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${stat.bg}`}>
-                    <Icon size={20} className={stat.color} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
+          <EnhancedStats userProfile={userProfile} completedSkills={completedSkills} />
         </motion.div>
 
         <Tabs value="agents" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4 lg:w-max lg:grid-cols-4">
             <TabsTrigger value="agents" className="flex items-center gap-2">
               <MessageSquare size={16} />
-              AI Mentors
+              <span className="hidden sm:inline">AI Mentors</span>
             </TabsTrigger>
             <TabsTrigger value="progress" className="flex items-center gap-2">
               <TrendingUp size={16} />
-              Progress
+              <span className="hidden sm:inline">Progress</span>
+            </TabsTrigger>
+            <TabsTrigger value="actions" className="flex items-center gap-2">
+              <Zap size={16} />
+              <span className="hidden sm:inline">Actions</span>
             </TabsTrigger>
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <Users size={16} />
-              Profile
+              <span className="hidden sm:inline">Profile</span>
             </TabsTrigger>
           </TabsList>
 
@@ -241,6 +260,10 @@ export function Dashboard({ user }: DashboardProps) {
                 </div>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="actions">
+            <QuickActions onActionClick={handleQuickAction} />
           </TabsContent>
 
           <TabsContent value="profile">

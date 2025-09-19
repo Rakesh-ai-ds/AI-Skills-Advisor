@@ -91,7 +91,8 @@ const Index = () => {
               <Button
                 size="lg"
                 onClick={() => setShowDemo(true)}
-                className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold"
+                variant="hero"
+                className="px-8 py-4 text-lg font-semibold"
               >
                 Try Demo Now
                 <ArrowRight size={20} className="ml-2" />
@@ -99,8 +100,8 @@ const Index = () => {
               
               <Button
                 size="lg"
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10 px-8 py-4 text-lg"
+                variant="modern"
+                className="px-8 py-4 text-lg"
                 onClick={() => setUser(demoUser)}
               >
                 Sign in with Google
@@ -238,7 +239,8 @@ const Index = () => {
             <Button
               size="lg"
               onClick={() => setShowDemo(true)}
-              className="bg-gradient-primary hover:opacity-90 px-8 py-4 text-lg font-semibold"
+              variant="hero"
+              className="px-8 py-4 text-lg font-semibold"
             >
               Start Your Journey
               <ArrowRight size={20} className="ml-2" />

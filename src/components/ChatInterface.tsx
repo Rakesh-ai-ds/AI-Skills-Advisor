@@ -49,6 +49,8 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
+    console.log('Sending message:', inputMessage, 'to agent:', activeAgent);
+
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       text: inputMessage,
@@ -62,7 +64,9 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
     setIsLoading(true);
 
     try {
+      console.log('Calling Gemini API with profile:', userProfile);
       const aiResponse = await geminiService.chatWithAgent(inputMessage, activeAgent, userProfile);
+      console.log('Received AI response:', aiResponse);
       
       const aiMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
@@ -76,6 +80,16 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
       onNewMessage?.(aiMessage);
     } catch (error) {
       console.error('Chat error:', error);
+      
+      // Show a user-friendly error message
+      const errorMessage: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        text: "I apologize, but I'm experiencing some technical difficulties right now. Please try asking your question again, or check back in a few moments. Your career journey is important, and I'm here to help! 💪",
+        sender: 'ai',
+        timestamp: new Date(),
+        agentType: activeAgent
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -188,7 +202,7 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
             onClick={handleSendMessage}
             disabled={isLoading || !inputMessage.trim()}
             size="icon"
-            className="bg-gradient-energy hover:opacity-90"
+            variant="energy"
           >
             <Send size={16} />
           </Button>

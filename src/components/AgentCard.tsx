@@ -89,10 +89,10 @@ export function AgentCard({ agentType, isActive, onClick }: AgentCardProps) {
           </div>
           
           <Button 
-            variant={isActive ? "default" : "outline"}
+            variant={isActive ? "success" : "outline"}
             className={`w-full ${
               isActive 
-                ? 'bg-gradient-primary hover:opacity-90' 
+                ? '' 
                 : 'border-border hover:bg-secondary'
             }`}
           >

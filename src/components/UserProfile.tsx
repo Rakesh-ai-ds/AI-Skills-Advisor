@@ -74,7 +74,7 @@ export function UserProfile({ userProfile, setUserProfile }: UserProfileProps) {
         <h2 className="text-2xl font-bold text-foreground">Your Career Profile</h2>
         <Button
           onClick={() => isEditing ? handleSave() : setIsEditing(true)}
-          className="bg-gradient-primary hover:opacity-90"
+          variant={isEditing ? "success" : "hero"}
         >
           {isEditing ? 'Save Changes' : 'Edit Profile'}
         </Button>
@@ -311,7 +311,7 @@ export function UserProfile({ userProfile, setUserProfile }: UserProfileProps) {
           >
             Cancel
           </Button>
-          <Button onClick={handleSave} className="bg-gradient-primary hover:opacity-90">
+          <Button onClick={handleSave} variant="success">
             Save Changes
           </Button>
         </motion.div>
