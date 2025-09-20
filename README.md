@@ -12,7 +12,7 @@
 
 *An intelligent platform that helps developers discover their skill gaps and get personalized learning recommendations*
 
-[Live Prototype](https://lovable.dev/projects/d078d427-0b63-4e94-9e0d-01ba36ed250e) | [GitHub Repository](https://github.com/Rakesh-ai-ds/AI-Skills-Advisor)
+[Live Prototype](https://advisor-bot.lovable.app/) | [GitHub Repository](https://github.com/Rakesh-ai-ds/AI-Skills-Advisor)
 
 </div>
 
