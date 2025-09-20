@@ -25,7 +25,7 @@ AI Skills Advisor is a smart web application that leverages **Google Gemini AI**
 > **Note**: This is a working prototype developed during the hackathon to demonstrate the potential of AI-powered skill assessment.
 
 ---
-
+![image alt](https://github.com/Rakesh-ai-ds/AI-Skills-Advisor/blob/main/WhatsApp%20Image%202025-09-20%20at%2016.45.06_fe3f56bb.jpg?raw=true)
 ## Key Features
 
 **Smart Skill Assessment**
@@ -128,6 +128,8 @@ AI-Skills-Advisor/
 ---
 
 ## Technology Stack Deep Dive
+![image alt](https://github.com/Rakesh-ai-ds/AI-Skills-Advisor/blob/main/WhatsApp%20Image%202025-09-20%20at%2016.40.05_2ec5b8d3.jpg?raw=true)
+
 
 **Frontend Framework**
 <div align="center">
