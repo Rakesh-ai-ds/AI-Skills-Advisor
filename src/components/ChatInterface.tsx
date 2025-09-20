@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { ChatMessage, geminiService, AgentPrompts } from '@/lib/gemini';
+import { FormattedMessage } from '@/components/FormattedMessage';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChatInterfaceProps {
@@ -142,7 +143,7 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
               animate={{ opacity: 1, y: 0 }}
               className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`flex items-start gap-2 max-w-[80%] ${
+              <div className={`flex items-start gap-2 max-w-[95%] ${
                 message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'
               }`}>
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
@@ -157,7 +158,11 @@ export function ChatInterface({ activeAgent, userProfile, onNewMessage }: ChatIn
                     ? 'bg-energy text-energy-foreground'
                     : 'bg-muted text-muted-foreground'
                 }`}>
-                  <p className="text-sm whitespace-pre-wrap">{message.text}</p>
+                  {message.sender === 'ai' ? (
+                    <FormattedMessage text={message.text} />
+                  ) : (
+                    <p className="text-sm whitespace-pre-wrap">{message.text}</p>
+                  )}
                 </div>
               </div>
             </motion.div>
